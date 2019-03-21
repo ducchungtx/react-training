@@ -8,7 +8,7 @@ export class TodoList extends Component {
             <TodoListItem key={index} item={item} index={index} removeItem={this.props.removeItem} markTodoDone={this.props.markTodoDone} />
           );
         });
-        
+        console.log('this.props', this.props);
         return (
           <ul className="list-group"> {items} </ul>
         );

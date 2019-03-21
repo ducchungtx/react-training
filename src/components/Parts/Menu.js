@@ -6,6 +6,7 @@ const menus = [
   { name: "To do", to: "/todo", exact: false },
   { name: "To do Redux", to: "/todo-redux", exact: false },
   { name: "Call API (Basic)", to: "/call-api", exact: false },
+  { name: "Call API (Redux-Saga)", to: "/call-api-redux-saga", exact: false },
   { name: "Giới thiệu", to: "/about", exact: false },
   { name: "Liên hệ", to: "/contact", exact: false }
 ];

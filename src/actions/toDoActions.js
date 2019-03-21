@@ -7,6 +7,7 @@ export const listTodo = () => {
 };
 
 export const addTodo = item => {
+  console.log('item', item);
   return {
     type: ADD_TODO,
     item

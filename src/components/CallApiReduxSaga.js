@@ -1,38 +1,41 @@
 import React, { Component } from 'react';
+import { connect } from "react-redux";
 import { Card, Form, Input, Row, Col, Button} from 'antd';
+import {
+  fetchGithubUser
+} from '../actions/gitHubActions';
 
-export class CallApi extends Component {
+export class CallApiReduxSaga extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-        data: [],
+            data: [],
             userName: 'ducchungtx'
         }
         this.changeUrl = this.changeUrl.bind(this);
-        this.callApi = this.callApi.bind(this);
         this.btnCallAction = this.btnCallAction.bind(this);
     }
 
     componentDidMount() {
-        this.callApi('ducchungtx');
+        this.props.fetchGithubUser('ducchungtx');
+    }
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+      const { gitHubReducer } = nextProps;
+      return { data: gitHubReducer.data };
     }
 
     changeUrl(e) {
         this.setState({ userName: e.target.value });
     }
 
-    callApi(username) {
-        let gitHubLink = `https://api.github.com/users/${username}/repos`;
-        fetch(gitHubLink).then(response => response.json()).then(data => this.setState({ data }));
-    }
-
     btnCallAction() {
-        this.callApi(this.state.userName);
+        this.props.fetchGithubUser(this.state.userName);
     }
 
   render() {
-      const { data } = this.state;
+    const { data } = this.state;
     return (
       <Row>
           <Col>
@@ -65,4 +68,13 @@ export class CallApi extends Component {
   }
 }
 
-export default CallApi
+const mapStateToProps = state => {
+  console.log('state', state);
+  const { gitHubReducer } = state;
+  return { gitHubReducer };
+};
+export default connect(
+  mapStateToProps,
+  { fetchGithubUser }
+)(CallApiReduxSaga);
+

@@ -9,16 +9,11 @@ const toDoReducer = (data = todoItems, action) => {
   switch (action.type) {
     case LIST_TODO:
       return data;
-    case ADD_TODO:
-      let todosAfterAdd = data.unshift({
-        index: data.length + 1,
-        value: action.item.newItemValue,
-        done: false
-      });
-      return todosAfterAdd;
-    case DELETE_TODO:
-      let todosAfterDelete = todoItems.splice(action.index, 1);
-      return todosAfterDelete;
+    case ADD_TODO:           
+      return [...data, {  index: data.length + 1, value: action.item.newItemValue, done: false }];
+    case DELETE_TODO:      
+      data.splice(action.index, 1);
+      return [...data];
     default:
       return data;
   }
